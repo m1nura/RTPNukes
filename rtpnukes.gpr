@@ -1,0 +1,7 @@
+project RTPNukes is
+
+   for Source_Dirs use ("./**");
+   for Main use ();
+
+end RTPNukes;
+
