@@ -18,9 +18,14 @@ package body Reactor_Component is
       Update_Temp;
    end Update_Reactor;
 
-   procedure Update_Temp is -- currently always equals Current_Control_Rod_Level, could have it increase slower than the rods in the future.
+   procedure Update_Temp is -- Reactor temp heats up faster depending on the level of the control rods. Currently between 0 and 15.
+
+      Temp_Rate_Of_Change : Float := 0.0;
+
    begin
-      Reactor_Temp := Current_Control_Rod_Level;
+      Temp_Rate_Of_Change := Float((Current_Control_Rod_Level * 15) / 100);
+
+      Reactor_Temp := Reactor_Temp + Integer(Float'Rounding(Temp_Rate_Of_Change));
    end Update_Temp;
 
    function Get_Current_Level return Natural is
