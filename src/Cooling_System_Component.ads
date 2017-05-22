@@ -3,12 +3,15 @@ use typedefs;
 
 package Cooling_System_Component is
 
-   procedure Set_Pump_Level (Level : in Natural);
-   procedure Pump_Rate;
-   function Get_Pump_Level return Natural;
+   --Controller should try to keep coolant level at 50.
+   --Higher than 50 == control rods too high / not enough steam being removed
+   --Lower than 50 == control rods too low / too much steam being removed
+
+   procedure Update_Cooling;
+
+   function Get_Coolant_Level return Reading_Value;
 
 private
-   Pump_Level : Natural := 0;
-   Generator_Steam_Level : Reading_Value := 0.00;
+   Coolant_Level : Reading_Value := 0.00;
 
 end Cooling_System_Component;

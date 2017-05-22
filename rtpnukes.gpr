@@ -1,7 +1,7 @@
 project RTPNukes is
 
    for Source_Dirs use ("./**");
-   for Main use ("Controller.adb");
+   for Main use ("Main.adb");
 
 end RTPNukes;
 
