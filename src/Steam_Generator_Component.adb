@@ -5,36 +5,40 @@ package body Steam_Generator_Component is
 
    procedure Generate_Steam is
    begin
-      Set_Rate_of_Change(Reactor_Component.Get_Temp);
-      Water_Level := Water_Level - (W_2_S_Rate_of_Change + S_2_W_Rate_of_Change);
-      Steam_Level := Steam_Level + (W_2_S_Rate_of_Change - S_2_W_Rate_of_Change);
+      Update_Power;
    end Generate_Steam;
 
-   procedure Set_Rate_of_Change(temp : in Natural) is
+   procedure Lower_Pump_Speed is
    begin
-      if temp > 100 then
-          W_2_S_Rate_of_Change := Reading_Value(temp) / 100.00;
+      if (Steam_Level /= 0.0) then
+	 Steam_Level := Steam_Level - 1.0;
       end if;
-   end Set_Rate_of_Change;
+   end Lower_Pump_Speed;
 
-   procedure Set_Rate_of_Condensation is
-
-      Pump_Level := Cooling_System_Component.Get_Pump_Level;
-
+   procedure Raise_Pump_Speed is
    begin
-      if Pump_Level > 0 then
-         S_2_W_Rate_of_Change := Pump_Level / 2.00;
+      if (Steam_Level /= 100.0) then
+	 Steam_Level := Steam_Level + 1.0;
       end if;
-   end Set_Rate_of_Condensation;
+   end Raise_Pump_Speed;
 
-   function Get_Water_Level return Reading_Value is
+   procedure Update_Power is
    begin
-      return Water_Level;
-   end Get_Water_Level;
+      if (Steam_Level /= 0.0) then
+	 Power_Output := Steam_Level * 16.3;
+      else
+	 Power_Output := 0.0;
+      end if;
+   end Update_Power;
 
    function Get_Steam_Level return Reading_Value is
    begin
       return Steam_Level;
    end Get_Steam_Level;
+
+   function Get_Power_Output return Reading_Value is
+   begin
+      return Power_Output;
+   end Get_Power_Output;
 
 end Steam_Generator_Component;

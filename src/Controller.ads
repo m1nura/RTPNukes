@@ -7,6 +7,5 @@ package Controller is
    procedure Start_Simulation;
    procedure Adjust_Values;
 
-private
-
+   Demand : Reading_Value := 1200.0;
 end Controller;
