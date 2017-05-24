@@ -9,17 +9,18 @@ package body Console is
    begin
       --use data from sensors, display it here
       Put_Line("");
-      Put("Control Rod Level: ");
-      Put_Line(Get_Control_Rod_Level'Img);
-      Put("Reactor Temp  :");
-      Put(Get_Reactor_Temperature'Img);
+      Put("Control Rod Level:");
+      Put(Get_Control_Rod_Level'Img);
       Put_Line(" %");
 
-      Put("Steam Level   :");
-      Put(Get_Steam_Level'Img);
-      Put_Line(" %");
+      Put("Reactor Temp     :");
+      Put_Line(Get_Reactor_Temperature'Img);
 
-      Put("Coolant Level :");
+      Put("Steam Pressure   :"); --display some other value maybe
+      Put(Get_Steam_Pressure'Img);
+      Put_Line(" bar");
+
+      Put("Coolant Level    :");
       Put(Get_Coolant_Level'Img);
       Put_Line(" %");
 
@@ -32,6 +33,8 @@ package body Console is
       Put("Power Output ");
       Put(Get_Power_Output'Img);
       Put_Line(" MW");
+
+      Ada.Text_IO.Put(ASCII.ESC & "[2J"); -- clear screen
    end Display_Values;
 
 

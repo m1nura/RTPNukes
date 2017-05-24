@@ -22,8 +22,6 @@ Put_Line("");
    --sets value of reactor or whatever needed depending on user input/scenario selected
    procedure Adjust_Values is
 
-
-
       subtype Random_Range is Integer range 0 .. 5;
       package Random_Int is new Ada.Numerics.Discrete_Random(Random_Range); use Random_Int;
 
@@ -31,8 +29,6 @@ Put_Line("");
       Random_Value: Random_Range;
 
    begin
-      While_Loop: while true loop
-
       Random_Int.Reset(Generator);
       Random_Value := Random(Generator);
 
@@ -42,27 +38,17 @@ Put_Line("");
 	 Demand := Demand - 15.0;
       end if;
 
-	 Steam_Generator_Component.Generate_Steam;
-	 Cooling_System_Component.Update_Cooling;
-	 Sensor_System.Observe_Sensor_Data;
+      if (Get_Power_Output < Demand - 15.0) then
+	 Steam_Generator_Component.Raise_Pump_Speed;
+      elsif (Get_Power_Output > Demand + 15.0) then
+	 Steam_Generator_Component.Lower_Pump_Speed;
+      end if;
 
-	 if (Get_Power_Output < Demand - 15.0) then
-	    Steam_Generator_Component.Raise_Pump_Speed;
-	 elsif (Get_Power_Output > Demand + 15.0) then
-	    Steam_Generator_Component.Lower_Pump_Speed;
-	 end if;
-
-	 if (Get_Coolant_Level < 45.0) then
-	    Reactor_Component.Raise_Rods;
-	 elsif (Get_Coolant_Level > 60.0) then
-	    Reactor_Component.Lower_Rods;
-	 end if;
-
-	 Display_Values;
-
-	 delay 0.1;
-	 Ada.Text_IO.Put(ASCII.ESC & "[2J"); -- clear screen
-      end loop While_Loop;
+      if (Get_Coolant_Level < 45.0) then
+	 Reactor_Component.Raise_Rods;
+      elsif (Get_Coolant_Level > 60.0) then
+	 Reactor_Component.Lower_Rods;
+      end if;
    end Adjust_Values;
 
 end Controller;

@@ -3,7 +3,7 @@ use typedefs;
 
 package Steam_Generator_Component is
 
-   procedure Generate_Steam;
+   procedure Update_Steam;
    procedure Lower_Pump_Speed;
    procedure Raise_Pump_Speed;
    procedure Update_Power;

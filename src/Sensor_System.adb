@@ -7,12 +7,11 @@ package body Sensor_System is
    begin
       Coolant_Level := Cooling_System_Component.Get_Coolant_Level;
       Steam_Level := Steam_Generator_Component.Get_Steam_Level;
-      Steam_Pressure := Steam_Generator_Component.Get_Steam_Level; --transofrm this data slightly so it indicates pressure rather than just the amount of steam in closed system
+      Steam_Pressure := (Steam_Generator_Component.Get_Steam_Level / 10.0) + 150.0; --transofrm this data slightly so it indicates pressure rather than just the amount of steam in closed system
       Turbine_Speed := Cooling_System_Component.Get_Coolant_Level + 1757.0; --value just added to show more interesting figures in console, goes up to 1500rpm max
       Power_Output := Steam_Generator_Component.Get_Power_Output;
       Reactor_Temperature := Cooling_System_Component.Get_Coolant_Level + 243.0;
       Control_Rod_Level := Reactor_Component.Get_Current_Level;
-
    end Observe_Sensor_Data;
 
    function Get_Coolant_Level return Reading_Value is

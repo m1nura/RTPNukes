@@ -3,10 +3,10 @@ use typedefs;
 
 package body Steam_Generator_Component is
 
-   procedure Generate_Steam is
+   procedure Update_Steam is
    begin
       Update_Power;
-   end Generate_Steam;
+   end Update_Steam;
 
    procedure Lower_Pump_Speed is
    begin

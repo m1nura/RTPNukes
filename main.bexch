@@ -1,0 +1,29 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\rtpnukes.gpr
+20170521103004
+[BOUND OBJECT FILES]
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\typedefs.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Reactor_Component.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Console.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Steam_Generator_Component.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Sensor_System.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Cooling_System_Component.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Controller.o
+C:\Users\Jake\Documents\Real Time Programming\RTPNukes\Main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-LC:\Users\Jake\Documents\Real Time Programming\RTPNukes\
+-LC:\Users\Jake\Documents\Real Time Programming\RTPNukes\
+-LC:/apps/gnat/lib/gcc/i686-pc-mingw32/4.9.3/adalib/
+-static
+-static-libgcc
+C:/apps/gnat/lib/gcc/i686-pc-mingw32/4.9.3/adalib/libgnarl.a
+C:/apps/gnat/lib/gcc/i686-pc-mingw32/4.9.3/adalib/libgnat.a
+-Xlinker
+--stack=0x200000,0x1000
+-mthreads
