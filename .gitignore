@@ -3,3 +3,8 @@
 
 # Ada Library Information
 *.ali
+
+# Ignore all except src folder
+/*
+/*/
+!/src/

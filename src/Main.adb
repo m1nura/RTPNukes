@@ -1,32 +1,42 @@
-with Console, Controller, Sensor_System, Cooling_System_Component, Steam_Generator_Component, Ada.Real_Time;
-use Ada.Real_Time;
+with Console, Controller, Sensor_System, Cooling_System_Component, Steam_Generator_Component, Reactor_Component, typedefs, Ada.Real_Time, Ada.Numerics.discrete_Random;
+use Cooling_System_Component, typedefs, Ada.Real_Time;
 
 procedure Main is
 
-   task Task_Steam_Generator;
-   task body Task_Steam_Generator is
+   task Task_Simulator;
+   task body Task_Simulator is
    begin
       loop
 	 Steam_Generator_Component.Update_Steam;
+	 Protected_Cooling.Steam_Set_Level(Steam_Generator_Component.Get_Steam_Level);
+	 Protected_Cooling.Reactor_Set_Level(Reactor_Component.Get_Current_Level);
 	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(100));
       end loop;
-   end Task_Steam_Generator;
-
-   task Task_Cooling_System;
-   task body Task_Cooling_System is
-   begin
-      loop
-	 Cooling_System_Component.Update_Cooling;
-	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(100);
-      end loop;
-   end Task_Cooling_System;
+   end Task_Simulator;
 
    task Task_Sensor_System;
    task body Task_Sensor_System is
+      subtype Random_Range is Integer range 0 .. 5;
+      package Random_Int is new Ada.Numerics.Discrete_Random(Random_Range); use Random_Int;
+
+      Generator : Random_Int.Generator;
+      Random_Value: Random_Range;
+
+      Demand : Reading_Value := 1200.0;
+
    begin
       loop
-	 Sensor_System.Observe_Sensor_Data;
-	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds(1);
+	 Random_Int.Reset(Generator);
+	 Random_Value := Random(Generator);
+
+	 if (Random_Value = 4 and Demand < 1600.0) then
+	    Demand := Demand + 15.0;
+	 elsif (Random_Value = 5 and Demand > 0.0) then
+	    Demand := Demand - 15.0;
+	 end if;
+
+	 Sensor_System.Observe_Sensor_Data(Demand);
+	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(1000);
       end loop;
    end Task_Sensor_System;
 

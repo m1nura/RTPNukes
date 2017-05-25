@@ -1,4 +1,4 @@
-with typedefs, Controller, Sensor_System;
+with typedefs, Controller, Sensor_System, Steam_Generator_Component;
 use typedefs, Controller, Sensor_System;
 
 with Ada.Text_IO; use Ada.Text_IO;
@@ -20,21 +20,20 @@ package body Console is
       Put(Get_Steam_Pressure'Img);
       Put_Line(" bar");
 
-      Put("Coolant Level    :");
-      Put(Get_Coolant_Level'Img);
-      Put_Line(" %");
-
       Put_Line("");
 
       Put("Demand ");
-      Put(Controller.Demand'Img);
+      Put(Sensor_System.Get_Power_Demand'Img);
       Put_Line(" MW");
 
       Put("Power Output ");
       Put(Get_Power_Output'Img);
       Put_Line(" MW");
 
-      Ada.Text_IO.Put(ASCII.ESC & "[2J"); -- clear screen
+      Put_Line(Steam_Generator_Component.Get_Steam_Level'Img);
+      Put_Line(Sensor_System.Get_Coolant_Level'Img);
+
+      Put(ASCII.ESC & "[2J"); -- clear screen
    end Display_Values;
 
 
