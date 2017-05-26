@@ -55,10 +55,15 @@ procedure Main is
    task Task_Console;
    task body Task_Console is
    begin
-      loop
+      Console.Start_Menu;
+      if (Console.Mode /= 0) then
+         loop
 	 Console.Display_Values;
 	 delay 0.1;
-      end loop;
+         end loop;
+      end if;
+
+
    end Task_Console;
 
 begin
