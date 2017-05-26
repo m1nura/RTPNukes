@@ -4,6 +4,7 @@ use typedefs;
 package Sensor_System is
 
    procedure Observe_Sensor_Data(Demand : in Reading_Value);
+   procedure Start;
 
    function Get_Coolant_Level return Reading_Value;
    function Get_Steam_Level return Reading_Value;

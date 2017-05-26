@@ -25,7 +25,7 @@ package body Steam_Generator_Component is
    procedure Update_Power is
    begin
       if (Steam_Level /= 0.0) then
-	 Power_Output := Steam_Level * 16.3;
+	 Power_Output := Steam_Level * 15;
       else
 	 Power_Output := 0.0;
       end if;

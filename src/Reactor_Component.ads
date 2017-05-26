@@ -8,6 +8,6 @@ package Reactor_Component is
    function Get_Current_Level return Natural;
 
 private
-   Current_Control_Rod_Level : Natural := 0;
+   Current_Control_Rod_Level : Natural := 10;
 
 end Reactor_Component;

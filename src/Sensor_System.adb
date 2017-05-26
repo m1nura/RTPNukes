@@ -1,5 +1,5 @@
-with typedefs, Steam_Generator_Component, Reactor_Component, Cooling_System_Component;
-use typedefs;
+with typedefs, Steam_Generator_Component, Reactor_Component, Cooling_System_Component, Ada.Real_Time;
+use typedefs, Ada.Real_Time;
 
 package body Sensor_System is
 
@@ -15,6 +15,16 @@ package body Sensor_System is
       Control_Rod_Level := Reactor_Component.Get_Current_Level;
 
    end Observe_Sensor_Data;
+
+   procedure Start is
+   begin
+      For_Loop :
+      for I in Integer range 1..10 loop
+	 Reactor_Temperature := Reactor_Temperature + 29.0;
+	 Control_Rod_Level := Control_Rod_Level + 1;
+	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds(1);
+      end loop For_Loop;
+   end Start;
 
    function Get_Coolant_Level return Reading_Value is
    begin

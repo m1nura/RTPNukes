@@ -1,4 +1,4 @@
-with typedefs, Controller, Sensor_System, Steam_Generator_Component;
+with typedefs, Controller, Sensor_System, Steam_Generator_Component, Reactor_Component;
 use typedefs, Controller, Sensor_System;
 
 with Ada.Text_IO; use Ada.Text_IO;
@@ -11,6 +11,8 @@ package body Console is
       Put_Line("");
       Put("Control Rod Level:");
       Put(Get_Control_Rod_Level'Img);
+      Put(" , ");
+      Put(Reactor_Component.Get_Current_Level'Img);
       Put_Line(" %");
 
       Put("Reactor Temp     :");
@@ -29,9 +31,6 @@ package body Console is
       Put("Power Output ");
       Put(Get_Power_Output'Img);
       Put_Line(" MW");
-
-      Put_Line(Steam_Generator_Component.Get_Steam_Level'Img);
-      Put_Line(Sensor_System.Get_Coolant_Level'Img);
 
       Put(ASCII.ESC & "[2J"); -- clear screen
    end Display_Values;

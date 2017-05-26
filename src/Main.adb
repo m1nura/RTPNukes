@@ -6,11 +6,12 @@ procedure Main is
    task Task_Simulator;
    task body Task_Simulator is
    begin
+      delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds(10);
       loop
 	 Steam_Generator_Component.Update_Steam;
 	 Protected_Cooling.Steam_Set_Level(Steam_Generator_Component.Get_Steam_Level);
 	 Protected_Cooling.Reactor_Set_Level(Reactor_Component.Get_Current_Level);
-	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(100));
+	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(1000));
       end loop;
    end Task_Simulator;
 
@@ -25,6 +26,7 @@ procedure Main is
       Demand : Reading_Value := 1200.0;
 
    begin
+      delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds(10);
       loop
 	 Random_Int.Reset(Generator);
 	 Random_Value := Random(Generator);
@@ -43,9 +45,10 @@ procedure Main is
    task Task_Controller;
    task body Task_Controller is
    begin
+      Controller.Start_Simulation;
       loop
 	 Controller.Adjust_Values;
-	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(100);
+	 delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(1000);
       end loop;
    end Task_Controller;
 

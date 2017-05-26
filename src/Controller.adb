@@ -15,7 +15,7 @@ package body Controller is
    --initialises simulation, sets initial values depending on user input from console
    procedure Start_Simulation is
    begin
-Put_Line("");
+      Sensor_System.Start;
    end Start_Simulation;
 
    --sets value of reactor or whatever needed depending on user input/scenario selected
