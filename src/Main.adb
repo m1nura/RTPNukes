@@ -1,19 +1,32 @@
-with Console, Controller, Sensor_System, Cooling_System_Component, Steam_Generator_Component, Reactor_Component, typedefs, Ada.Real_Time, Ada.Numerics.discrete_Random;
-use Cooling_System_Component, typedefs, Ada.Real_Time;
+with Console, Controller, Sensor_System, Cooling_System_Component, Steam_Generator_Component, Reactor_Component, typedefs, Semaphore, Ada.Real_Time, Ada.Numerics.discrete_Random;
+use Cooling_System_Component, typedefs, Semaphore, Ada.Real_Time;
 
 procedure Main is
 
-   task Task_Simulator;
-   task body Task_Simulator is
+   task Task_Reactor;
+   task body Task_Reactor is
+   begin
+      delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(10100);
+      loop
+	 Binary_Semaphore.Acquire;
+	 Protected_Cooling.Reactor_Set_Level(Reactor_Component.Get_Current_Level);
+	 Binary_Semaphore.Release;
+	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(500));
+      end loop;
+   end Task_Reactor;
+
+   task Task_Steam_Generator;
+   task body Task_Steam_Generator is
    begin
       delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds(10);
       loop
+	 Binary_Semaphore.Acquire;
 	 Steam_Generator_Component.Update_Steam;
 	 Protected_Cooling.Steam_Set_Level(Steam_Generator_Component.Get_Steam_Level);
-	 Protected_Cooling.Reactor_Set_Level(Reactor_Component.Get_Current_Level);
-	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(1000));
+	 Binary_Semaphore.Release;
+	 delay until (Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds(500));
       end loop;
-   end Task_Simulator;
+   end Task_Steam_Generator;
 
    task Task_Sensor_System;
    task body Task_Sensor_System is

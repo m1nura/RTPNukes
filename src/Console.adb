@@ -51,12 +51,11 @@ package body Console is
       Put_Line("");
       Put("Control Rod Level:");
       Put(Get_Control_Rod_Level'Img);
-      Put(" , ");
-      Put(Reactor_Component.Get_Current_Level'Img);
       Put_Line(" %");
 
       Put("Reactor Temp     :");
-      Put_Line(Get_Reactor_Temperature'Img);
+      Put(Get_Reactor_Temperature'Img);
+      Put_Line("° Celsius");
 
       Put("Steam Pressure   :"); --display some other value maybe
       Put(Get_Steam_Pressure'Img);

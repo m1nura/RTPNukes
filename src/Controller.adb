@@ -21,9 +21,9 @@ package body Controller is
    --sets value of reactor or whatever needed depending on user input/scenario selected
    procedure Adjust_Values is
    begin
-      if (Get_Power_Output < Get_Power_Demand - 15.0) then
+      if (Get_Power_Output < Get_Power_Demand) then
 	 Steam_Generator_Component.Raise_Pump_Speed;
-      elsif (Get_Power_Output > Get_Power_Demand + 15.0) then
+      elsif (Get_Power_Output > Get_Power_Demand) then
 	 Steam_Generator_Component.Lower_Pump_Speed;
       end if;
 
